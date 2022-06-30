@@ -1,0 +1,10 @@
+All
+Collaborator
+Graphql
+InformationDisclosure
+SQLi
+regex
+JWT
+PathTraversal
+API_Keys
+apikeys

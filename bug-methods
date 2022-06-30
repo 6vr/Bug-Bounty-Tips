@@ -1,0 +1,37 @@
+Rate Limiting bug
+                    capture the request  -→ send it to Intruter --→ Null Paylaod --→ attack
+                    chech the requst send how many times
+               
+Reset Page 
+                    give 2 mail id ,,,and check if 2 mail get the OTP
+                    multiple time reset → only last OTP is works
+                    chaning the original id to my my mail id
+   
+accout creation
+                        No verification send by server
+                        no OTP
+                       
+                      
+Authentication Bugs
+                          Enter crt passwd --→ copy the Response code   (Responce Manipulation)
+                          enter wrong passwd ----→ delect the responce and paste the correct passwd responce ----→ send the reqest
+                               
+Reset Link 
+                            check the reset link 
+                            link address is same or not
+                           or It is serial number ( next number )
+                           search the response if anywhere the reset link is leack
+                           
+EXIF data
+                           upload a metadata image ---→ download from server
+                           check it in metapicz.com
+
+AWS 
+                           S3 buget in URL or check source code
+                           find the buget name and download the AWS CLI
+                                 And Try this comments
+                         Read :         aws s3 ls s3://victim buget name 
+                         write :         aws s3 cp ./filename s3://victim
+                         Download:   aws s3 cp s3://victim/filename ./
+                         remove  :     aws s2 rm s3://victim/filename
+                
